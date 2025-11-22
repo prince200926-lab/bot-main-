@@ -3,6 +3,10 @@ from discord import app_commands
 from discord.ext import commands
 import json
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Bot setup
 intents = discord.Intents.default()
@@ -362,4 +366,11 @@ async def slash_show_config(interaction: discord.Interaction):
     await interaction.response.send_message(embed=embed)
 
 # Run the bot
-bot.run('MTQ0MTYzMTAyODQ4NDc3MTk1MQ.Gvt926.AHYj0U5GPAMAr1deypoTO722oUnq2B7BQormX4')
+BOT_TOKEN = os.getenv('BOT_KEY')
+
+if not BOT_TOKEN:
+    print("Error: BOT_KEY environment variable not found!")
+    print("Please set it using: export BOT_KEY='your_token_here'")
+    exit(1)
+
+bot.run(BOT_TOKEN)
